@@ -1,0 +1,41 @@
+---
+
+---
+
+<header class="text-white p-4 py-10 bg-transparent">
+  <nav class="flex justify-center text-2xl font-semibold">
+    <ul class="flex space-x-4">
+      <li>
+        <a href="#live-dates" class="un">Live Dates</a>
+      </li>
+      <li>
+        <a href="/music" class="un">Music</a>
+      </li>
+      <li>
+        <a href="/bio" class="un">Bio</a>
+      </li>
+      <li>
+        <a href="/shop" class="un">Shop</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .un {
+    display: inline-block;
+    padding-bottom: 2px;
+    background-image: linear-gradient(#ffffff 0 0);
+    background-position: 0 100%; /*OR bottom left*/
+    background-size: 0% 2px;
+    background-repeat: no-repeat;
+    transition:
+      background-size 0.3s,
+      background-position 0s 0.3s; /*change after the size immediately*/
+  }
+
+  .un:hover {
+    background-position: 100% 100%; /*OR bottom right*/
+    background-size: 100% 2px;
+  }
+</style>

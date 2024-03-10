@@ -1,0 +1,63 @@
+---
+let shows = [
+  {
+    date: new Date("2022-01-01"),
+    title: "Jaka Kloaka predskupina",
+    location: "Amsterdamia",
+  },
+  {
+    date: new Date("2022-02-01"),
+    title: "Miha kiha festival",
+    location: "Lalaland",
+  },
+  {
+    date: new Date("2022-03-01"),
+    title: "Zorko Motorko showcase",
+    location: "Mishkaslavia",
+  },
+  // Add more shows here
+];
+---
+
+<div id="live-dates" class="relative isolate overflow-hidden w-full p-16 scroll-margin-top">
+  <img
+    src="/offwhite_background.webp"
+    alt="hero background"
+    class="absolute inset-0 -z-10 h-full w-full object-cover"
+  />
+  <h1 class="text-3xl font-bold m-8 mb-16 tracking-widest text-center">Gig dates</h1>
+  <div class="grid grid-cols-1 gap-4">
+    {
+      shows.map((show) => (
+        <div class="grid grid-cols-4 border-b-2 pb-4 border-gray-600 place-items-center">
+          <h3 class="text-2xl font-bold">
+            {show.date.toDateString()}
+          </h3>
+          <h3 class="text-2xl font-bold">{show.title}</h3>
+          <h3 class="text-2xl font-bold">{show.location}</h3>
+          <button class="bg-black w-fit">
+            <span class="block -translate-x-2 -translate-y-2 border-2 border-black bg-rose-400 py-3 px-10 tracking-widest w-fit text-2xl  hover:-translate-y-3 hover:-translate-x-3 active:translate-x-0 active:translate-y-0 transition-all"> More </span>
+        </button>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .grid-item::after {
+    content: "";
+    position: absolute;
+    right: -2px; /* Adjust based on gap size */
+    top: 0;
+    bottom: 2;
+    width: 2px;
+    background-color: black; /* Or any color */
+  }
+  .grid-item {
+    position: relative;
+  }
+  .scroll-margin-top {
+    scroll-margin-top: 10px;
+  }
+</style>
