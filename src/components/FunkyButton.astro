@@ -1,0 +1,30 @@
+---
+type Props = {
+  text: string;
+  asLink?: boolean;
+  href?: string;
+  classExtra?: string;
+};
+const { text, asLink, href, classExtra } = Astro.props;
+import clsx from "clsx";
+const buttonClass = clsx("bg-black w-fit", classExtra);
+---
+
+{
+    asLink ?
+    <a href={href} class={buttonClass}>
+      <span
+        class="block -translate-x-2 -translate-y-2 border-2 border-black bg-rose-400 py-3 px-10 tracking-widest w-fit text-2xl hover:-translate-y-3 hover:-translate-x-3 active:translate-x-0 active:translate-y-0 transition-all"
+      >
+        {text}
+      </span>
+    </a>
+    :
+    <button class={buttonClass}>
+      <span
+        class="block -translate-x-2 -translate-y-2 border-2 border-black bg-rose-400 py-3 px-10 tracking-widest w-fit text-2xl hover:-translate-y-3 hover:-translate-x-3 active:translate-x-0 active:translate-y-0 transition-all"
+      >
+        {text}
+      </span>
+    </button>
+}

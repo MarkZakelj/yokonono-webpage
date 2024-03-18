@@ -1,0 +1,50 @@
+---
+import Layout from "../layouts/LayoutNoFooter.astro";
+import Header from "../components/Header.astro";
+import FunkyButton from "../components/FunkyButton.astro";
+
+if (Astro.request.method === "POST") {
+  try {
+    const dataFrom = await Astro.request.formData();
+    const email = dataFrom.get("email") as string;
+    if (!email) {
+      throw new Error("Email is required");
+    }
+    console.log(email);
+    console.log(import.meta.env.SENDGRID_API_KEY);
+    const body = JSON.stringify({
+      contacts: [
+        {
+          email: email,
+        },
+      ],
+    });
+    const res = await fetch("https://api.sendgrid.com/v3/marketing/contacts", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${import.meta.env.SENDGRID_API_KEY}`,
+      },
+      body: body,
+    });
+    console.log(await res.text())
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+---
+
+<Layout title="Welcome to Astro." isBlackFooter={false}>
+  <Header isBlack={false} />
+  <main class="w-full h-full mt-10">
+    <section
+      class="w-full h-full flex flex-col gap-y-16 justify-center items-center text-white"
+    >
+      <h1 class="text-4xl font-bold text-center">You are now subscribed to our newsletter!</h1>
+      <p class="text-2xl">We'll let you know about new releases and concerts!</p>
+      <FunkyButton text="Go back to home" asLink href="/" />
+    </section>
+  </main>
+</Layout>

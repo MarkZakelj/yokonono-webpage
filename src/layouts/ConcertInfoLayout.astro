@@ -1,0 +1,41 @@
+---
+import Layout from "./Layout.astro";
+import Header from "../components/Header.astro";
+const concertInfo = Astro.props;
+---
+
+<Layout title={concertInfo.title} isBlackFooter={true}>
+  <Header isBlack />
+  <article class="p-4 text-gray-800 mx-auto block text-center text-xl">
+    <img
+      src="/public/offwhite_background.webp"
+      alt="hero background"
+      class="absolute inset-0 -z-20 h-full w-full object-cover"
+    />
+    <!-- <div class="pointer-events-none absolute inset-0 top-0 -z-10 h-full bg-gradient-to-b from-gray-800/90 to-slate-500/50" /> -->
+    <div
+      class="pointer-events-none absolute inset-0 top-0 -z-10 h-full bg-gray-800/20"
+    >
+    </div>
+    <h2 class="text-2xl mb-2 font-bold">Concert Information</h2>
+    <div class="grid grid-cols-2 place-content-center justify-center w-fit text-start gap-4 items-center mx-auto my-10">
+      <span class="">Title</span>
+      <h1 class="text-xl font-bold">{concertInfo.frontmatter.title}</h1>
+      <span class="">Date</span>
+      <h1 class="text-xl font-bold">{concertInfo.frontmatter.date}</h1>
+      <span class="">Venue</span>
+      <h1 class="text-xl font-bold">{concertInfo.frontmatter.venue}</h1>
+      <span class="">Location</span>
+      <h1 class="text-2xl font-bold">{concertInfo.frontmatter.city}</h1>
+    </div>
+    <p>
+      <a href={concertInfo.ticketsLink} class="text-blue-500 underline"
+        >Buy Tickets</a
+      >
+    </p>
+    <div>
+      <h2 class="text-2xl mb-2 font-bold">Concert Details</h2>
+      <p><slot /></p>
+    </div>
+  </article>
+</Layout>
