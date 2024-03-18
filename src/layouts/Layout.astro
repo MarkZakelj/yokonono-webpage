@@ -1,7 +1,7 @@
 ---
 interface Props {
   title: string;
-  isBlackFooter: boolean;
+  isBlackFooter?: boolean;
 }
 
 const { title, isBlackFooter = false } = Astro.props;
@@ -22,7 +22,7 @@ import Footer from "../components/sections/Footer.astro";
   <body>
     <slot />
   </body>
-  <Footer isBlack={isBlackFooter}/>
+  <Footer isBlack={isBlackFooter} />
 </html>
 <style is:global>
   :root {
@@ -37,13 +37,13 @@ import Footer from "../components/sections/Footer.astro";
     );
   }
   html {
-    font-family: "Anton", sans-serif;;
+    font-family: "Anton", sans-serif;
     background: #13151a;
     background-size: 224px;
     scroll-behavior: smooth;
     letter-spacing: 0.09;
   }
   code {
-    font-family: "Anton", sans-serif;;
+    font-family: "Anton", sans-serif;
   }
 </style>
