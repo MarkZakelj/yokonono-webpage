@@ -1,21 +1,39 @@
 ---
+import Newsletter from "../Newsletter.astro";
 let bandInfo = {
-  name: 'Band Name',
-  bio: 'For people in love of all ages',
-  image: 'yoko-nono.webp',
+  name: "Band Name",
+  bio: "For people in love of all ages",
+  image: "/yoko-nono.webp",
 };
-import { Icon } from 'astro-icon/components'
+type Props = {
+  isBlack: boolean;
+};
+const { isBlack = false } = Astro.props;
+import clsx from "clsx";
+import { Icon } from "astro-icon/components";
 ---
 
-<footer class="p-10 mx-auto block w-fit space-y-8">
+<footer class="p-10 mx-auto block space-y-8">
   <!-- <h1 class="text-4xl mb-4">{bandInfo.name}</h1> -->
-  <img src={bandInfo.image} alt={bandInfo.name} class="mb-4" width={300}/>
-  <!-- <p>{bandInfo.bio}</p> -->
-  <div class="flex gap-5 items-center justify-center">
-    <Icon name="instagram" class="text-4xl text-gray-300 hover:text-rose-500"/>
-    <Icon name="facebook" class="text-3xl text-gray-300 hover:text-blue-500"/>
+  <div class="flex flex-col">
+    <img
+      src={bandInfo.image}
+      alt={bandInfo.name}
+      class="mx-auto mb-5"
+      width={700}
+      height={100}
+    />
+    <div class="w-full sm:w-[50%] mx-auto">
+      <Newsletter />
+    </div>
   </div>
-  <div class="text-center text-gray-200 font-extralight">
+  <!-- <p>{bandInfo.bio}</p> -->
+  <div
+    class={clsx(
+      "text-center font-extralight",
+      isBlack ? "text-gray-800" : "text-gray-100",
+    )}
+  >
     <p>Copyright © 2024 Yoko Nono</p>
   </div>
 </footer>

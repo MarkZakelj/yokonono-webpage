@@ -1,41 +1,129 @@
 ---
+import {Icon} from "astro-icon/components";
+interface Props {
+    isBlack: boolean;
+}
 
+const {isBlack = false} = Astro.props;
+import clsx from "clsx";
+let headerClass = clsx(
+  isBlack ? "text-gray-800" : "text-white",
+  "p-4 py-10 bg-transparent",
+  "grid grid-cols-3 gap-x-10 items-center"
+);
+let underClass = clsx('un', isBlack ? 'black' : 'white')
 ---
 
-<header class="text-white p-4 py-10 bg-transparent">
-  <nav class="flex justify-center text-2xl font-semibold">
-    <ul class="flex space-x-4">
-      <li>
-        <a href="#live-dates" class="un">Live Dates</a>
-      </li>
-      <li>
-        <a href="/music" class="un">Music</a>
-      </li>
-      <li>
-        <a href="/bio" class="un">Bio</a>
-      </li>
-      <li>
-        <a href="/shop" class="un">Shop</a>
-      </li>
-    </ul>
-  </nav>
+<header class={headerClass}>
+    <div class=""></div>
+    <nav class="hidden lg:flex justify-center z-20 tracking-wider text-2xl font-semibold">
+        <ul class="flex gap-x-4">
+            <li>
+                <a href="/#live-dates" class={underClass}>Dates</a>
+            </li>
+            <li>
+                <a href="/music" class={underClass}>Music</a>
+            </li>
+            <li>
+                <a href="/bio" class={underClass}>Bio</a>
+            </li>
+            <!--<li>-->
+            <!--    <a href="/shop" class={underClass}>Shop</a>-->
+            <!--</li>-->
+        </ul>
+    </nav>
+    <div class="flex gap-5 pl-1 lg:pl-0 items-center justify-center lg:justify-end lg:pr-32">
+        <Icon name="instagram"
+              class={clsx("text-4xl lg:text-3xl hover:text-rose-500", isBlack ? 'text-gray-800' : 'text-gray-300')}/>
+        <Icon name="facebook"
+              class={clsx("text-3xl lg:text-2xl hover:text-blue-500", isBlack ? 'text-gray-800' : 'text-gray-300')}/>
+        <!--<Icon name="facebook" class={clsx("text-4xl hover:text-blue-500", isBlack ? 'text-gray-800': 'text-gray-300')}/>-->
+    </div>
+    <div class="tham tham-e-slider tham-w-8 absolute right-8 z-20 lg:hidden">
+        <div class="tham-box">
+            <div class="tham-inner bg-gray-200"/>
+        </div>
+    </div>
+    <nav class="absolute top-0 inset-0 w-full z-10 invisible" id="mobile-links">
+        <div id="backdrop-blur" class="fixed inset-0 bg-white/40 backdrop-blur -z-10 hidden"/>
+        <ul id="mobile-links-list"
+            class="flex flex-col gap-y-4 text-lg items-center bg-gray-400/80 p-10 rounded-b-xl w-full z-10 -translate-y-[100%] transition-transform duration-300 ease-in-out">
+            <li class="w-1/2">
+                <button class="bg-black w-full">
+                    <span class="block -translate-x-2 -translate-y-2 border-2 border-black bg-rose-400 py-3 px-10 tracking-widest w-full hover:-translate-y-3 hover:-translate-x-3 active:translate-x-0 active:translate-y-0 transition-all">
+                        <a href="/#live-dates" class="text-gray-900">Live Dates</a>
+                    </span>
+                </button>
+            </li>
+            <li class="w-1/2">
+                <button class="bg-black w-full">
+                    <span class="block -translate-x-2 -translate-y-2 border-2 border-black bg-rose-400 py-3 px-10 tracking-widest w-full hover:-translate-y-3 hover:-translate-x-3 active:translate-x-0 active:translate-y-0 transition-all">
+                        <a href="/music" class="text-gray-900">Music</a>
+                    </span>
+                </button>
+            </li>
+            <li class="w-1/2">
+                <button class="bg-black w-full">
+                        <span class="block -translate-x-2 -translate-y-2 border-2 border-black bg-rose-400 py-3 px-10 tracking-widest w-full hover:-translate-y-3 hover:-translate-x-3 active:translate-x-0 active:translate-y-0 transition-all">
+                            <a href="/bio" class="text-gray-900">Bio</a>
+                        </span>
+                </button>
+            </li>
+            <!--<li>-->
+            <!--    <a href="/shop" class="text-gray-900">Shop</a>-->
+            <!--</li>-->
+            <li class="w-1/2">
+                <button class="bg-black w-full">
+                         <span class="block -translate-x-2 -translate-y-2 border-2 border-black bg-rose-400 py-3 px-10 tracking-widest w-full hover:-translate-y-3 hover:-translate-x-3 active:translate-x-0 active:translate-y-0 transition-all">
+                            <a href="/" class="text-gray-900">Home</a>
+                         </span>
+                </button>
+            </li>
+        </ul>
+    </nav>
 </header>
 
-<style>
-  .un {
-    display: inline-block;
-    padding-bottom: 2px;
-    background-image: linear-gradient(#ffffff 0 0);
-    background-position: 0 100%; /*OR bottom left*/
-    background-size: 0% 2px;
-    background-repeat: no-repeat;
-    transition:
-      background-size 0.3s,
-      background-position 0s 0.3s; /*change after the size immediately*/
-  }
+<script>
+    const tham = document.querySelector(".tham");
+    const mobiles = document.querySelector("#mobile-links");
+    const mobilesList = document.querySelector("#mobile-links-list");
+    const backBlur = document.querySelector("#backdrop-blur");
 
-  .un:hover {
-    background-position: 100% 100%; /*OR bottom right*/
-    background-size: 100% 2px;
-  }
+    tham.addEventListener('click', () => {
+        mobiles.classList.toggle('invisible');
+        tham.classList.toggle('tham-active');
+        backBlur.classList.toggle('hidden');
+        mobilesList.classList.toggle('-translate-y-[100%]');
+    });
+    mobilesList.addEventListener('click', () => {
+        mobiles.classList.toggle('invisible');
+        tham.classList.toggle('tham-active');
+        backBlur.classList.toggle('hidden');
+        mobilesList.classList.toggle('-translate-y-[100%]');
+    });
+</script>
+
+<style>
+    .un {
+        display: inline-block;
+        padding-bottom: 2px;
+        background-position: 0 100%; /*OR bottom left*/
+        background-size: 0% 2px;
+        background-repeat: no-repeat;
+        transition: background-size 0.3s,
+        background-position 0s 0.3s; /*change after the size immediately*/
+    }
+
+    .white {
+        background-image: linear-gradient(#ffffff 0 0);
+    }
+
+    .black {
+        background-image: linear-gradient(#131313 0 0);
+    }
+
+    .un:hover {
+        background-position: 100% 100%; /*OR bottom right*/
+        background-size: 100% 2px;
+    }
 </style>

@@ -1,0 +1,47 @@
+---
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    const email = data.get("email");
+    console.log(email);
+    // Do something with the data
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+---
+
+<form class="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8" method="POST">
+  <div class="">
+    <label class="block text-gray-800 text-lg font-bold mb-2" for="email">
+      Subscribe to our newsletter
+    </label>
+    <input
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+      id="email"
+      type="email"
+      placeholder="Your email"
+      name="email"
+    />
+  </div>
+  <div class="flex items-center justify-center mt-4">
+    <button class="bg-black w-fit" id="sub-button">
+      <span
+        class="block -translate-x-2 -translate-y-2 border-2 border-black bg-rose-400 py-3 px-10 tracking-widest w-fit text-2xl hover:-translate-y-3 hover:-translate-x-3 active:translate-x-0 active:translate-y-0 transition-all"
+      >
+        Subscribe
+      </span>
+    </button>
+  </div>
+</form>
+
+<script>
+  const but = document.getElementById("sub-button");
+  if (but) {
+    but.addEventListener("click", async () => {
+      history.pushState({}, "", "/newsletter-subscribe");
+    });
+  }
+</script>

@@ -1,63 +1,63 @@
 ---
-let shows = [
-  {
-    date: new Date("2022-01-01"),
-    title: "Jaka Kloaka predskupina",
-    location: "Amsterdamia",
-  },
-  {
-    date: new Date("2022-02-01"),
-    title: "Miha kiha festival",
-    location: "Lalaland",
-  },
-  {
-    date: new Date("2022-03-01"),
-    title: "Zorko Motorko showcase",
-    location: "Mishkaslavia",
-  },
-  // Add more shows here
-];
+const gigs = (await Astro.glob("../../content/concerts/*.md")).sort((a, b) => {
+    if (a.frontmatter.date < b.frontmatter.date) return -1;
+    if (a.frontmatter.date > b.frontmatter.date) return 1;
+    return 0;
+})
 ---
 
-<div id="live-dates" class="relative isolate overflow-hidden w-full p-16 scroll-margin-top">
-  <img
-    src="/offwhite_background.webp"
-    alt="hero background"
-    class="absolute inset-0 -z-10 h-full w-full object-cover"
-  />
-  <h1 class="text-3xl font-bold m-8 mb-16 tracking-widest text-center">Gig dates</h1>
-  <div class="grid grid-cols-1 gap-4">
-    {
-      shows.map((show) => (
-        <div class="grid grid-cols-4 border-b-2 pb-4 border-gray-600 place-items-center">
-          <h3 class="text-2xl font-bold">
-            {show.date.toDateString()}
-          </h3>
-          <h3 class="text-2xl font-bold">{show.title}</h3>
-          <h3 class="text-2xl font-bold">{show.location}</h3>
-          <button class="bg-black w-fit">
-            <span class="block -translate-x-2 -translate-y-2 border-2 border-black bg-rose-400 py-3 px-10 tracking-widest w-fit text-2xl  hover:-translate-y-3 hover:-translate-x-3 active:translate-x-0 active:translate-y-0 transition-all"> More </span>
-        </button>
-        </div>
-      ))
-    }
-  </div>
+<div
+        id="live-dates"
+        class="relative isolate overflow-hidden w-full p-16 scroll-margin-top"
+>
+    <img
+            src="/offwhite_background.webp"
+            alt="hero background"
+            class="absolute inset-0 -z-10 h-full w-full object-cover"
+    />
+    <h1 class="text-3xl font-bold m-8 mb-16 tracking-widest text-center">
+        Gig dates
+    </h1>
+    <div class="grid grid-cols-1 gap-4">
+        {
+            gigs.map((show) => (
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-b-2 pb-4 border-gray-600 place-items-center text-xl lg:text-2xl font-semibold">
+                        <h3 class="">
+                            {new Date(show.frontmatter.date).toDateString()}
+                        </h3>
+                        <div class="grid grid-cols-2 gap-x-5">
+                            <h3 class="text-right">{show.frontmatter.title}</h3>
+                            <h3 class="text-left">{show.frontmatter.location}</h3>
+                        </div>
+                        <a target="_blank" href={show.frontmatter.ticketLink}>
+                            <button class="bg-black w-fit">
+                                <span class="block -translate-x-2 -translate-y-2 border-2 border-black bg-rose-400 py-3 px-10 tracking-widest w-fit hover:-translate-y-3 hover:-translate-x-3 active:translate-x-0 active:translate-y-0 transition-all">
+                                    More
+                                </span>
+                            </button>
+                        </a>
+                    </div>
+            ))
+        }
+    </div>
 </div>
 
 <style>
-  .grid-item::after {
-    content: "";
-    position: absolute;
-    right: -2px; /* Adjust based on gap size */
-    top: 0;
-    bottom: 2;
-    width: 2px;
-    background-color: black; /* Or any color */
-  }
-  .grid-item {
-    position: relative;
-  }
-  .scroll-margin-top {
-    scroll-margin-top: 10px;
-  }
+    .grid-item::after {
+        content: "";
+        position: absolute;
+        right: -2px; /* Adjust based on gap size */
+        top: 0;
+        bottom: 2;
+        width: 2px;
+        background-color: black; /* Or any color */
+    }
+
+    .grid-item {
+        position: relative;
+    }
+
+    .scroll-margin-top {
+        scroll-margin-top: 10px;
+    }
 </style>
